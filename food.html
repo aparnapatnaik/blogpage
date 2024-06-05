@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Diaries</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f0f0f0;
+      overflow-y: scroll;
+    }
+
+    header {
+      background-color: palevioletred;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 24px;
+    }
+
+    .user-input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 20px auto;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      width: 50%;
+    }
+
+    .user-input .comment-author-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #ccc;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 5px;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .user-input input[type="text"] {
+      flex: 1;
+      margin-right: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .user-input button {
+      padding: 8px 20px;
+      background-color: palevioletred;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .background-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .content {
+      padding: 10px;
+      margin: 80px auto 20px;
+      width: 50%;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+    }
+
+    .poem-box {
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+    }
+
+    article {
+      margin-bottom: 20px;
+    }
+
+    .like-button, .comment-button, .share-button, .reply-button, .comment-like-button {
+      cursor: pointer;
+      font-size: 24px;
+      margin-right: 10px;
+    }
+
+    .like-button, .comment-button, .share-button {
+      color: black;
+    }
+
+    .like-counter {
+      font-size: 18px;
+      color: black;
+      position: relative;
+      top: 5px;
+    }
+
+    .comments {
+      margin-top: 20px;
+    }
+
+    .comment {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: rgba(240, 240, 240, 0.8);
+      border-radius: 5px;
+    }
+
+    .comment-author {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .comment-author-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #ccc;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 5px;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .reply {
+      margin-left: 20px;
+      padding-left: 10px;
+      border-left: 2px solid #ccc;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      right: 50px;
+      transform: translate(0, -50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+    .accounts-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .account {
+      margin-bottom: 10px;
+    }
+
+    .account-checkbox {
+      margin-right: 5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: palevioletred;
+      color: #fff;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>BLOG DIARIES</h1>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <img src="bckg.jpg" alt="Background Image" class="background-image">
+
+  <div class="user-input" aria-label="User Input">
+    <div>
+      <span class="comment-author-logo" aria-hidden="true">Y</span>
+      <span class="comment-author">You</span>
+    </div>
+    <input type="text" placeholder="Write something..." class="comment-input" aria-label="Write something">
+    <button onclick="sendMessage()" aria-label="Send">Send</button>
+  </div>
+
+  <div class="content">
+    <div class="poem-box">
+      <article>
+        <h2>The Aroma of Spices</h2>
+        <p class="comment-author"><span class="comment-author-logo">D</span>deblina8:</p>
+        <p>
+          In a kitchen warm and bright,<br>
+          When spices dance in sight,<br>
+          A symphony of scents arise,<br>
+          Awakening taste and eyes.
+        </p>
+        <p>
+          It tells of dishes rich and bold,<br>
+          Of stories in flavors told,<br>
+          Of recipes passed down with care,<br>
+          In the meals that families share.
+        </p>
+        <div>
+          <span class="like-button" onclick="toggleLike(this, 'like-counter1')" aria-label="Like">&#x2665;</span>
+          <span class="like-counter" id="like-counter1" aria-label="Like Counter">0</span>
+          <span class="comment-button" onclick="toggleComments('comments1')" aria-label="Comment">&#x1F5E8;</span>
+          <span class="share-button" onclick="sharePost()" aria-label="Share">&#x1F4E3;</span>
+        </div>
+      </article>
+      <div class="comments" id="comments1" style="display:none;">
+        <div class="comment">
+          <p><span class="comment-author-logo">A</span><span class="comment-author">Arjun</span>: This made me hungry!</p>
+          <div>
+            <span class="comment-like-button" onclick="toggleCommentLike(this)" aria-label="Like Comment">&#x2665;</span>
+            <span class="comment-reply-button" onclick="toggleReply(this, 'reply1')" aria-label="Reply">&#x21A9;</span>
+          </div>
+          <div class="replies" id="reply1" style="display:none;">
+            <!-- Replies will be added here -->
+          </div>
+        </div>
+      </div>
+      <div class="add-comment">
+        <input type="text" placeholder="Add a comment...">
+        <button onclick="addComment('comments1')">Comment</button>
+      </div>
+    </div>
+
+    <div class="poem-box">
+      <article>
+        <h2>The Perfect Dish</h2>
+        <p class="comment-author"><span class="comment-author-logo">R</span>Rani:</p>
+        <p>
+          On a table set just right,<br>
+          Lies a dish of pure delight,<br>
+          With flavors balanced, texture keen,<br>
+          A masterpiece, a culinary dream.
+        </p>
+        <p>
+          Through the hands of skill and art,<br>
+          From the soul and from the heart,<br>
+          It stands alone, a chef's pride,<br>
+          A joy that cannot be denied.
+        </p>
+        <div>
+          <span class="like-button" onclick="toggleLike(this, 'like-counter2')" aria-label="Like">&#x2665;</span>
+          <span class="like-counter" id="like-counter2" aria-label="Like Counter">0</span>
+          <span class="comment-button" onclick="toggleComments('comments2')" aria-label="Comment">&#x1F5E8;</span>
+          <span class="share-button" onclick="sharePost()" aria-label="Share">&#x1F4E3;</span>
+        </div>
+      </article>
+      <div class="comments" id="comments2" style="display:none;">
+        <div class="comment">
+          <p><span class="comment-author-logo">K</span><span class="comment-author">Krishna</span>: This is exactly how I feel about cooking.</p>
+          <div>
+            <span class="comment-like-button" onclick="toggleCommentLike(this)" aria-label="Like Comment">&#x2665;</span>
+            <span class="comment-reply-button" onclick="toggleReply(this, 'reply2')" aria-label="Reply">&#x21A9;</span>
+          </div>
+          <div class="replies" id="reply2" style="display:none;">
+            <!-- Replies will be added here -->
+          </div>
+        </div>
+      </div>
+      <div class="add-comment">
+        <input type="text" placeholder="Add a comment...">
+        <button onclick="addComment('comments2')">Comment</button>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2023 Blog Diaries. All rights reserved.</p>
+  </footer>
+
+  <div class="popup" id="sharePopup">
+    <span class="close-button" onclick="closePopup()">X</span>
+    <h3>Share Post</h3>
+    <ul class="accounts-list">
+      <li class="account"><input type="checkbox" class="account-checkbox" value="Alice">Alice</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="Bob">Bob</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="Charlie">Charlie</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="Dave">Dave</li>
+    </ul>
+    <button onclick="sendPost()">Send</button>
+  </div>
+
+  <script>
+    function toggleLike(button, counterId) {
+      const likeCounter = document.getElementById(counterId);
+      let count = parseInt(likeCounter.textContent, 10);
+      
+      if (button.style.color === 'black' || button.style.color === '') {
+        button.style.color = 'red';
+        count++;
+      } else {
+        button.style.color = 'black';
+        count--;
+      }
+      
+      likeCounter.textContent = count.toString();
+    }
+
+    function toggleComments(commentsId) {
+      const comments = document.getElementById(commentsId);
+      if (comments.style.display === 'none' || comments.style.display === '') {
+        comments.style.display = 'block';
+      } else {
+        comments.style.display = 'none';
+      }
+    }
+
+    function addComment(commentsId) {
+      const comments = document.getElementById(commentsId);
+      const input = comments.nextElementSibling.querySelector('input');
+      const commentText = input.value;
+      if (commentText.trim() !== '') {
+        const newComment = document.createElement('div');
+        newComment.classList.add('comment');
+        newComment.innerHTML = `
+          <p><span class="comment-author-logo">Y</span><span class="comment-author">You</span>: ${commentText}</p>
+          <div>
+            <span class="comment-like-button" onclick="toggleCommentLike(this)" aria-label="Like Comment">&#x2665;</span>
+            <span class="comment-reply-button" onclick="toggleReply(this)" aria-label="Reply">&#x21A9;</span>
+          </div>
+          <div class="replies" style="display:none;"></div>
+        `;
+        comments.appendChild(newComment);
+        input.value = '';
+      }
+    }
+
+    function toggleCommentLike(button) {
+      if (button.style.color === 'black' || button.style.color === '') {
+        button.style.color = 'red';
+      } else {
+        button.style.color = 'black';
+      }
+    }
+
+    function toggleReply(button, replyId) {
+      const replies = document.getElementById(replyId);
+      if (replies.style.display === 'none' || replies.style.display === '') {
+        replies.style.display = 'block';
+      } else {
+        replies.style.display = 'none';
+      }
+    }
+
+    function sharePost() {
+      const popup = document.getElementById('sharePopup');
+      popup.style.display = 'block';
+    }
+
+    function closePopup() {
+      const popup = document.getElementById('sharePopup');
+      popup.style.display = 'none';
+    }
+
+    function sendPost() {
+      const checkboxes = document.querySelectorAll('.account-checkbox');
+      let selectedAccounts = [];
+      checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          selectedAccounts.push(checkbox.value);
+        }
+      });
+      alert('Post shared with: ' + selectedAccounts.join(', '));
+      closePopup();
+    }
+  </script>
+
+</body>
+</html>

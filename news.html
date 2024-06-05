@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Diaries</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f0f0f0;
+      overflow-y: scroll;
+    }
+
+    header {
+      background-color: palevioletred;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 24px;
+    }
+
+    .user-input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 20px 0;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      width: 50%; 
+      margin-left: 24%;
+    }
+
+    .user-input .comment-author-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #ccc;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 5px;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .user-input input[type="text"] {
+      flex: 1;
+      margin-right: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .user-input button {
+      padding: 8px 20px;
+      background-color: palevioletred;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .background-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .content {
+      padding: 10px;
+      margin: 80px auto 20px;
+      width: 50%;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+    }
+
+    .article-box {
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+    }
+
+    article {
+      margin-bottom: 20px;
+    }
+
+    .like-button, .comment-button, .share-button {
+      cursor: pointer;
+      font-size: 24px;
+      margin-right: 10px;
+    }
+
+    .like-button, .comment-button, .share-button {
+      color: black;
+      position: relative;
+    }
+
+    .like-counter {
+      font-size: 18px;
+      color: black;
+      position: relative;
+      top: 5px;
+    }
+
+    .comments {
+      margin-top: 20px;
+    }
+
+    .comment {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: rgba(240, 240, 240, 0.8);
+      border-radius: 5px;
+    }
+
+    .comment-author {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .comment-author-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #ccc;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 5px;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .reply {
+      margin-left: 20px;
+      padding-left: 10px;
+      border-left: 2px solid #ccc;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      right: 50px;
+      transform: translate(0, -50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+    .accounts-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .account {
+      margin-bottom: 10px;
+    }
+
+    .account-checkbox {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>NEWS DIARIES</h1>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <img src="bckg.jpg" alt="Background Image" class="background-image">
+
+  <div class="user-input">
+    <div>
+      <span class="comment-author-logo">Y</span>
+      <span class="comment-author">You</span>
+    </div>
+    <input type="text" placeholder="Write something..." class="comment-input">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <div class="content">
+    <div class="news-article">
+      <article>
+        <h2>Breaking News: Political Developments</h2>
+        <p class="comment-author"><span class="comment-author-logo">R</span>Reporter123:</p>
+        <p>In a surprising turn of events, the political landscape has shifted dramatically today with the resignation of several key government officials. Speculation is rife about the reasons behind this sudden decision and its potential implications on the upcoming elections.</p>
+        <div>
+          <span class="like-button" onclick="toggleLike(this, 'like-counter1')">&#x2665;</span>
+          <span class="like-counter" id="like-counter1">0</span>
+          <span class="comment-button" onclick="toggleComment(this, 'comment-section1')">💬</span>
+          <span class="share-button" onclick="sharePost()">&#x1F4E3;</span>
+        </div>
+        <div class="comments" id="comment-section1" style="display: none;">
+          <!-- Comments section -->
+          <div class="comment">
+            <p class="comment-author"><span class="comment-author-logo">U</span>User123:</p>
+            <p>This is a significant development that will surely impact the upcoming elections. Can't wait to see how it unfolds!</p>
+            <div>
+              <span class="like-button" onclick="toggleCommentLike(this, 'comment-like-counter1-1')">&#x2665;</span>
+              <span class="like-counter" id="comment-like-counter1-1">0</span>
+              <span class="reply-button" onclick="toggleReply(this, 'reply-section1-1')">↩</span>
+            </div>
+            <div class="replies" id="reply-section1-1" style="display: none;">
+              <!-- Replies section -->
+              <div class="comment-input">
+                <input type="text" placeholder="Reply..." class="comment-input">
+                <button onclick="addReply('reply-section1-1')">Reply</button>
+              </div>
+            </div>
+          </div>
+          <div class="comment">
+            <p class="comment-author"><span class="comment-author-logo">A</span>Analyst456:</p>
+            <p>The resignation of these officials might lead to a major political realignment. We'll be closely monitoring the situation.</p>
+            <div>
+              <span class="like-button" onclick="toggleCommentLike(this, 'comment-like-counter1-2')">&#x2665;</span>
+              <span class="like-counter" id="comment-like-counter1-2">0</span>
+              <span class="reply-button" onclick="toggleReply(this, 'reply-section1-2')">↩</span>
+            </div>
+            <div class="replies" id="reply-section1-2" style="display: none;">
+              <!-- Replies section -->
+              <div class="comment-input">
+                <input type="text" placeholder="Reply..." class="comment-input">
+                <button onclick="addReply('reply-section1-2')">Reply</button>
+              </div>
+            </div>
+          </div>
+          <!-- Add more comments here -->
+          <div class="comment-input">
+            <input type="text" placeholder="Add a comment..." class="comment-input">
+            <button onclick="addComment('comment-section1')">Comment</button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="news-article">
+      <article>
+        <h2>Technology Breakthrough: Quantum Computing</h2>
+        <p class="comment-author"><span class="comment-author-logo">T</span>TechEnthusiast:</p>
+        <p>A major breakthrough in quantum computing has been achieved by researchers, paving the way for unprecedented computational power and potential applications in various fields, including cryptography, drug discovery, and optimization problems.</p>
+        <div>
+          <span class="like-button" onclick="toggleLike(this, 'like-counter2')">&#x2665;</span>
+          <span class="like-counter" id="like-counter2">0</span>
+          <span class="comment-button" onclick="toggleComment(this, 'comment-section2')">💬</span>
+          <span class="share-button" onclick="sharePost()">&#x1F4E3;</span>
+        </div>
+        <div class="comments" id="comment-section2" style="display: none;">
+          <!-- Comments section -->
+          <div class="comment">
+            <p class="comment-author"><span class="comment-author-logo">E</span>Expert789:</p>
+            <p>This breakthrough is a game-changer in the world of computing. The potential applications are immense!</p>
+            <div>
+              <span class="like-button" onclick="toggleCommentLike(this, 'comment-like-counter2-1')">&#x2665;</span>
+              <span class="like-counter" id="comment-like-counter2-1">0</span>
+              <span class="reply-button" onclick="toggleReply(this, 'reply-section2-1')">↩</span>
+            </div>
+            <div class="replies" id="reply-section2-1" style="display: none;">
+              <!-- Replies section -->
+              <div class="comment-input">
+                <input type="text" placeholder="Reply..." class="comment-input">
+                <button onclick="addReply('reply-section2-1')">Reply</button>
+              </div>
+            </div>
+          </div>
+          <div class="comment">
+            <p class="comment-author"><span class="comment-author-logo">S</span>Student101:</p>
+            <p>As a computer science student, I'm thrilled by the possibilities that quantum computing offers. Exciting times ahead!</p>
+            <div>
+              <span class="like-button" onclick="toggleCommentLike(this, 'comment-like-counter2-2')">&#x2665;</span>
+              <span class="like-counter" id="comment-like-counter2-2">0</span>
+              <span class="reply-button" onclick="toggleReply(this, 'reply-section2-2')">↩</span>
+            </div>
+            <div class="replies" id="reply-section2-2" style="display: none;">
+              <!-- Replies section -->
+              <div class="comment-input">
+                <input type="text" placeholder="Reply..." class="comment-input">
+                <button onclick="addReply('reply-section2-2')">Reply</button>
+              </div>
+            </div>
+          </div>
+          <!-- Add more comments here -->
+          <div class="comment-input">
+            <input type="text" placeholder="Add a comment..." class="comment-input">
+            <button onclick="addComment('comment-section2')">Comment</button>
+          </div>
+        </div>
+      </article>
+    </div>
+    
+    <!-- Add more news articles with comments following the same pattern -->
+
+  </div>
+
+  <footer>
+    <p>&copy; 2024 News Diaries. All rights reserved.</p>
+  </footer>
+
+  <div class="shared-post" style="display: none;">
+    <p>Shared Post Content Goes Here</p>
+  </div>
+
+  <!-- Popup box positioned on the right side -->
+  <div class="popup" style="display: none;">
+    <button class="close-button" onclick="closePopup()">Close</button>
+    <h3>Select Accounts to Share With:</h3>
+    <ul class="accounts-list">
+      <li class="account"><input type="checkbox" class="account-checkbox" value="lissakit"> lissakit</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="Savelyui"> Savelyui</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="Oklihish"> Oklihish</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="Kate"> Kate</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="sweetiebutter"> sweetiebutter</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="Nina89"> Nina89</li>
+    </ul>
+    <button class="send-button" onclick="send()">Send</button>
+  </div>
+
+  <!-- JavaScript code -->
+  <script>
+    // Object to store like counts for each news article
+    let likeCounts = {
+      'like-counter1': 0,
+      'like-counter2': 0
+    };
+
+    // Object to store like counts for each comment
+    let commentLikeCounts = {
+      'comment-like-counter1-1': 0,
+      'comment-like-counter1-2': 0,
+      'comment-like-counter2-1': 0,
+      'comment-like-counter2-2': 0
+    };
+
+    // Function to toggle like for a news article
+    function toggleLike(element, counterId) {
+      const likeCounter = document.getElementById(counterId);
+      if (element.style.color === 'red') {
+        element.style.color = 'black';
+        likeCounts[counterId]--;
+      } else {
+        element.style.color = 'red';
+        likeCounts[counterId]++;
+      }
+      likeCounter.innerText = likeCounts[counterId];
+    }
+
+    // Function to toggle like for a comment
+    function toggleCommentLike(element, counterId) {
+      const likeCounter = document.getElementById(counterId);
+      if (element.style.color === 'red') {
+        element.style.color = 'black';
+        commentLikeCounts[counterId]--;
+      } else {
+        element.style.color = 'red';
+        commentLikeCounts[counterId]++;
+      }
+      likeCounter.innerText = commentLikeCounts[counterId];
+    }
+
+    // Function to toggle comment section visibility
+    function toggleComment(button, sectionId) {
+      const commentSection = document.getElementById(sectionId);
+      if (commentSection.style.display === 'none' || commentSection.style.display === '') {
+        commentSection.style.display = 'block';
+      } else {
+        commentSection.style.display = 'none';
+      }
+    }
+
+    // Function to toggle reply section visibility
+    function toggleReply(button, sectionId) {
+      const replySection = document.getElementById(sectionId);
+      if (replySection.style.display === 'none' || replySection.style.display === '') {
+        replySection.style.display = 'block';
+      } else {
+        replySection.style.display = 'none';
+      }
+    }
+
+    // Function to add a comment to a news article
+    function addComment(sectionId) {
+      const commentSection = document.getElementById(sectionId);
+      const commentInput = commentSection.querySelector('.comment-input input');
+      const commentText = commentInput.value.trim();
+
+      if (commentText !== '') {
+        const newComment = document.createElement('div');
+        newComment.classList.add('comment');
+        newComment.innerHTML = `
+          <p class="comment-author"><span class="comment-author-logo">Y</span>You:</p>
+          <p>${commentText}</p>
+          <div>
+            <span class="like-button" onclick="toggleCommentLike(this, 'new-comment-like-counter')">&#x2665;</span>
+            <span class="like-counter" id="new-comment-like-counter">0</span>
+            <span class="reply-button" onclick="toggleReply(this, 'new-reply-section')">↩</span>
+          </div>
+          <div class="replies" id="new-reply-section" style="display: none;">
+            <div class="comment-input">
+              <input type="text" placeholder="Reply..." class="comment-input">
+              <button onclick="addReply('new-reply-section')">Reply</button>
+            </div>
+          </div>
+        `;
+        commentSection.insertBefore(newComment, commentSection.querySelector('.comment-input'));
+        commentInput.value = ''; // Clear the input field after adding comment
+
+        // Add new comment like counter to the commentLikeCounts object
+        const newCommentLikeCounterId = `comment-like-counter${Object.keys(commentLikeCounts).length + 1}`;
+        newComment.querySelector('.like-counter').id = newCommentLikeCounterId;
+        commentLikeCounts[newCommentLikeCounterId] = 0;
+
+        // Add new reply section to the replies object
+        const newReplySectionId = `reply-section${Object.keys(commentLikeCounts).length + 1}`;
+        newComment.querySelector('.replies').id = newReplySectionId;
+      } else {
+        alert('Please enter a comment.');
+      }
+    }
+
+    // Function to add a reply to a comment
+    function addReply(sectionId) {
+      const replySection = document.getElementById(sectionId);
+      const replyInput = replySection.querySelector('.comment-input input');
+      const replyText = replyInput.value.trim();
+
+      if (replyText !== '') {
+        const newReply = document.createElement('div');
+        newReply.classList.add('comment');
+        newReply.innerHTML = `
+          <p class="comment-author"><span class="comment-author-logo">Y</span>You:</p>
+          <p>${replyText}</p>
+          <div>
+            <span class="like-button" onclick="toggleCommentLike(this, 'new-reply-like-counter')">&#x2665;</span>
+            <span class="like-counter" id="new-reply-like-counter">0</span>
+          </div>
+        `;
+        replySection.insertBefore(newReply, replySection.querySelector('.comment-input'));
+        replyInput.value = ''; // Clear the input field after adding reply
+
+        // Add new reply like counter to the commentLikeCounts object
+        const newReplyLikeCounterId = `comment-like-counter${Object.keys(commentLikeCounts).length + 1}`;
+        newReply.querySelector('.like-counter').id = newReplyLikeCounterId;
+        commentLikeCounts[newReplyLikeCounterId] = 0;
+      } else {
+        alert('Please enter a reply.');
+      }
+    }
+
+    // Function to share post
+    function sharePost() {
+      const popup = document.querySelector('.popup');
+      popup.style.display = 'block';
+    }
+
+    // Function to close the popup
+    function closePopup() {
+      const popup = document.querySelector('.popup');
+      popup.style.display = 'none';
+    }
+
+    // Function to send the shared post to selected accounts
+    function send() {
+      const checkboxes = document.querySelectorAll('.account-checkbox');
+      const selectedAccounts = [];
+      checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          selectedAccounts.push(checkbox.value);
+        }
+      });
+      if (selectedAccounts.length > 0) {
+        alert('Shared with: ' + selectedAccounts.join(', '));
+      } else {
+        alert('Please select at least one account to share with.');
+      }
+      closePopup();
+    }
+  </script>
+</body>
+</html>

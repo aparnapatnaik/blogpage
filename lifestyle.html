@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Diaries - Lifestyle</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f0f0f0;
+      overflow-y: scroll;
+    }
+
+    header {
+      background-color: palevioletred;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 24px;
+    }
+
+    .user-input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 20px 0;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      width: 50%; 
+      margin-left: 24%;
+    }
+
+    .user-input .comment-author-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #ccc;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 5px;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .user-input input[type="text"] {
+      flex: 1;
+      margin-right: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .user-input button {
+      padding: 8px 20px;
+      background-color: palevioletred;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .background-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .content {
+      padding: 10px;
+      margin: 80px auto 20px;
+      width: 50%;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+    }
+
+    .article-box {
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+    }
+
+    article {
+      margin-bottom: 20px;
+    }
+
+    .like-button, .comment-button, .share-button {
+      cursor: pointer;
+      font-size: 24px;
+      margin-right: 10px;
+    }
+
+    .like-button, .comment-button, .share-button {
+      color: black;
+      position: relative;
+    }
+
+    .like-counter {
+      font-size: 18px;
+      color: black;
+      position: relative;
+      top: 5px;
+    }
+
+    .comments {
+      margin-top: 20px;
+    }
+
+    .comment {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: rgba(240, 240, 240, 0.8);
+      border-radius: 5px;
+    }
+
+    .comment-author {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .comment-author-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #ccc;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 5px;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .reply {
+      margin-left: 20px;
+      padding-left: 10px;
+      border-left: 2px solid #ccc;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      right: 50px;
+      transform: translate(0, -50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+    .accounts-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .account {
+      margin-bottom: 10px;
+    }
+
+    .account-checkbox {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>BLOG DIARIES - Lifestyle</h1>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <img src="bckg.jpg" alt="Background Image" class="background-image">
+
+  <div class="user-input">
+    <div>
+      <span class="comment-author-logo">Y</span>
+      <span class="comment-author">You</span>
+    </div>
+    <input type="text" placeholder="Write something..." class="comment-input">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <div class="content">
+    <div class="article-box">
+      <article>
+        <h2>10 Healthy Habits for a Fulfilling Life</h2>
+        <p class="comment-author"><span class="comment-author-logo">A</span>Author123</p>
+        <p>Living a fulfilling life is all about cultivating healthy habits. Here are 10 habits to incorporate into your daily routine:</p>
+        <ol>
+          <li>Start your day with a nutritious breakfast.</li>
+          <li>Practice mindfulness and meditation to reduce stress.</li>
+          <li>Stay hydrated by drinking plenty of water throughout the day.</li>
+          <li>Exercise regularly to keep your body strong and healthy.</li>
+          <li>Get enough sleep to recharge your body and mind.</li>
+          <li>Cultivate gratitude by practicing daily gratitude journaling.</li>
+          <li>Connect with nature by spending time outdoors.</li>
+          <li>Limit screen time and prioritize real-life interactions.</li>
+          <li>Set achievable goals and work towards them consistently.</li>
+          <li>Practice self-care and prioritize your mental and emotional well-being.</li>
+        </ol>
+        <div>
+          <span class="like-button" onclick="toggleLike(this, 'like-counter5')">&#x2665;</span>
+          <span class="like-counter" id="like-counter5">0</span>
+          <span class="comment-button" onclick="toggleComment(this, 'comment-section5')">💬</span>
+          <span class="share-button" onclick="sharePost()">&#x1F4E3;</span>
+        </div>
+
+        <div class="comments" id="comment-section5" style="display: none;">
+          <div class="comment">
+            <p class="comment-author"><span class="comment-author-logo">U</span>User456</p>
+            <p>Thank you for sharing these tips! I'll definitely incorporate them into my routine.</p>
+            <div>
+              <span class="like-button" onclick="toggleCommentLike(this, 'comment-like-counter5-1')">&#x2665;</span>
+              <span class="like-counter" id="comment-like-counter5-1">0</span>
+              <span class="reply-button" onclick="toggleReply(this, 'reply-section5-1')">↩</span>
+            </div>
+            <div class="replies" id="reply-section5-1" style="display: none;">
+              <div class="comment">
+                <p class="comment-author"><span class="comment-author-logo">A</span>Author123</p>
+                <p>You're welcome! I hope they bring positive changes to your life.</p>
+                <div>
+                  <span class="like-button" onclick="toggleCommentLike(this, 'comment-like-counter5-2')">&#x2665;</span>
+                  <span class="like-counter" id="comment-like-counter5-2">0</span>
+                  <span class="reply-button" onclick="toggleReply(this, 'reply-section5-2')">↩</span>
+                </div>
+                <div class="replies" id="reply-section5-2" style="display: none;">
+                  <!-- Reply input section -->
+                  <div class="comment-input">
+                    <input type="text" placeholder="Reply..." class="reply-input">
+                    <button onclick="addReply('reply-section5-2')">Reply</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="comment-input">
+            <input type="text" placeholder="Add a comment..." class="comment-input">
+            <button onclick="addComment('comment-section5')">Comment</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Blog Diaries. All rights reserved.</p>
+  </footer>
+
+  <div class="shared-post" style="display: none;">
+    <p>Shared Post Content Goes Here</p>
+  </div>
+
+  <!-- Popup box positioned on the right side -->
+  <div class="popup" style="display: none;">
+    <button class="close-button" onclick="closePopup()">Close</button>
+    <h3>Select Accounts to Share With:</h3>
+    <ul class="accounts-list">
+      <li class="account"><input type="checkbox" class="account-checkbox" value="lissakit"> lissakit</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="Savelyui"> Savelyui</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="Oklihish"> Oklihish</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="Kate"> Kate</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="sweetiebutter"> sweetiebutter</li>
+      <li class="account"><input type="checkbox" class="account-checkbox" value="Nina89"> Nina89</li>
+    </ul>
+    <button class="send-button" onclick="send()">Send</button>
+  </div>
+
+  <script>
+    // Initialize like counts
+    const likeCounts = {
+      'like-counter5': 0,
+      'comment-like-counter5-1': 0,
+      'comment-like-counter5-2': 0
+    };
+
+    function toggleLike(element, counterId) {
+      const likeCounter = document.getElementById(counterId);
+      if (element.style.color === 'red') {
+        element.style.color = 'black';
+        likeCounts[counterId]--;
+      } else {
+        element.style.color = 'red';
+        likeCounts[counterId]++;
+      }
+      likeCounter.innerText = likeCounts[counterId];
+    }
+
+    function toggleCommentLike(element, counterId) {
+      const likeCounter = document.getElementById(counterId);
+      if (element.style.color === 'red') {
+        element.style.color = 'black';
+        likeCounts[counterId]--;
+      } else {
+        element.style.color = 'red';
+        likeCounts[counterId]++;
+      }
+      likeCounter.innerText = likeCounts[counterId];
+    }
+
+    function toggleComment(button, sectionId) {
+      const commentSection = document.getElementById(sectionId);
+      if (commentSection.style.display === 'none' || commentSection.style.display === '') {
+        commentSection.style.display = 'block';
+      } else {
+        commentSection.style.display = 'none';
+      }
+    }
+
+    function toggleReply(button, sectionId) {
+      const replySection = document.getElementById(sectionId);
+      if (replySection.style.display === 'none' || replySection.style.display === '') {
+        replySection.style.display = 'block';
+      } else {
+        replySection.style.display = 'none';
+      }
+    }
+
+    function addComment(sectionId) {
+      const commentSection = document.getElementById(sectionId);
+      const commentInput = commentSection.querySelector('.comment-input input');
+      const commentText = commentInput.value.trim();
+
+      if (commentText !== '') {
+        const newComment = document.createElement('div');
+        newComment.classList.add('comment');
+        const newCommentId = `comment-like-counter${Object.keys(likeCounts).length + 1}`;
+        likeCounts[newCommentId] = 0;
+        newComment.innerHTML = `
+          <p class="comment-author"><span class="comment-author-logo">Y</span>You:</p>
+          <p>${commentText}</p>
+          <div>
+            <span class="like-button" onclick="toggleCommentLike(this, '${newCommentId}')">&#x2665;</span>
+            <span class="like-counter" id="${newCommentId}">0</span>
+            <span class="reply-button" onclick="toggleReply(this, 'reply-section${Object.keys(likeCounts).length + 1}')">↩</span>
+          </div>
+          <div class="replies" id="reply-section${Object.keys(likeCounts).length + 1}" style="display: none;">
+            <div class="comment-input">
+              <input type="text" placeholder="Reply..." class="reply-input">
+              <button onclick="addReply('reply-section${Object.keys(likeCounts).length + 1}')">Reply</button>
+            </div>
+          </div>
+        `;
+        commentSection.insertBefore(newComment, commentSection.querySelector('.comment-input'));
+        commentInput.value = ''; // Clear the input field after adding comment
+      } else {
+        alert('Please enter a comment.');
+      }
+    }
+
+    function addReply(sectionId) {
+      const replySection = document.getElementById(sectionId);
+      const replyInput = replySection.querySelector('.reply-input');
+      const replyText = replyInput.value.trim();
+
+      if (replyText !== '') {
+        const newReply = document.createElement('div');
+        newReply.classList.add('comment');
+        const newReplyId = `comment-like-counter${Object.keys(likeCounts).length + 1}`;
+        likeCounts[newReplyId] = 0;
+        newReply.innerHTML = `
+          <p class="comment-author"><span class="comment-author-logo">Y</span>You:</p>
+          <p>${replyText}</p>
+          <div>
+            <span class="like-button" onclick="toggleCommentLike(this, '${newReplyId}')">&#x2665;</span>
+            <span class="like-counter" id="${newReplyId}">0</span>
+            <span class="reply-button" onclick="toggleReply(this, 'reply-section${Object.keys(likeCounts).length + 1}')">↩</span>
+          </div>
+          <div class="replies" id="reply-section${Object.keys(likeCounts).length + 1}" style="display: none;">
+            <div class="comment-input">
+              <input type="text" placeholder="Reply..." class="reply-input">
+              <button onclick="addReply('reply-section${Object.keys(likeCounts).length + 1}')">Reply</button>
+            </div>
+          </div>
+        `;
+        replySection.insertBefore(newReply, replySection.querySelector('.comment-input'));
+        replyInput.value = ''; // Clear the input field after adding reply
+      } else {
+        alert('Please enter a reply.');
+      }
+    }
+
+    function sharePost() {
+      const sharedPost = document.querySelector('.shared-post');
+      const popup = document.querySelector('.popup');
+
+      // Display the shared post
+      sharedPost.style.display = 'block';
+
+      // Display the popup
+      popup.style.display = 'block';
+    }
+
+    function closePopup() {
+      const popup = document.querySelector('.popup');
+      popup.style.display = 'none';
+    }
+
+    function openPopup() {
+      const popup = document.querySelector('.popup');
+      popup.style.display = 'block';
+    }
+
+    function send() {
+      const checkboxes = document.querySelectorAll('.account-checkbox');
+      const selectedAccounts = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+      if (selectedAccounts.length === 0) {
+        alert('Please select at least one account to send.');
+      } else if (selectedAccounts.length === 1) {
+        alert(`Sending to ${selectedAccounts[0]}...`); // Send directly if only one selected
+      } else {
+        alert(`Sending to ${selectedAccounts.join(', ')}...`); // Send to multiple selected
+      }
+      closePopup(); // Close the popup after sending
+    }
+  </script>
+</body>
+</html>

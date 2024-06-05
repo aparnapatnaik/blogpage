@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Diaries</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f0f0f0;
+      overflow-y: scroll;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    header {
+      background-color: palevioletred;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      margin-top: auto;
+    }
+    
+    header h1 {
+      font-size: 24px;
+    }
+
+    .background-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+
+    .menu button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      background-color: palevioletred;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .create-post {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .emoji-box {
+      display: inline-block;
+      font-size: 24px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .post-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+      flex-direction: column;
+    }
+
+    #postText {
+      width: 70%;
+      height: 100px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: none;
+    }
+
+    #emojiPopup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    .sticker {
+      font-size: 24px;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    .post-button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: palevioletred;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      align-self: flex-end;
+      margin-right: 35%;
+      
+
+    }
+    header {
+      background-color: palevioletred;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 24px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BLOG DIARIES</h1>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <img src="bckg.jpg" alt="Background Image" class="background-image">
+
+  <div class="create-post">
+    <div class="post-container">
+      <div>
+        <textarea id="postText" rows="4" cols="50" placeholder="Write your post here..."></textarea>
+        <div class="emoji-box" onclick="showEmojiPopup()">😊</div>
+      </div>
+      <button class="post-button" onclick="postContent()">Post</button>
+    </div>
+  </div>
+
+  <div id="emojiPopup">
+    <p>Select a sticker:</p>
+    <div class="sticker" onclick="addSticker('😀')">😀</div>
+    <div class="sticker" onclick="addSticker('😂')">😂</div>
+    <div class="sticker" onclick="addSticker('😍')">😍</div>
+    <div class="sticker" onclick="addSticker('😎')">😎</div>
+  </div>
+
+  <div class="menu">
+    <button onclick="navigateTo('poetry.html')">Poetry</button>
+    <button onclick="navigateTo('lifestyle.html')">Lifestyle</button>
+    <button onclick="navigateTo('news.html')">News</button>
+    <button onclick="navigateTo('profile.html')">Profile</button>
+    <button onclick="navigateTo('food.html')">Food</button>
+    <button onclick="navigateTo('login.html')">Back to Login Page</button>
+  </div>
+
+  <footer>
+    <p>&copy; 2023 Blog Diaries. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function navigateTo(page) {
+      window.location.href = page;
+    }
+
+    function showEmojiPopup() {
+      document.getElementById("emojiPopup").style.display = "block";
+    }
+
+    function addSticker(sticker) {
+      const postText = document.getElementById("postText");
+      postText.value += sticker;
+      document.getElementById("emojiPopup").style.display = "none";
+    }
+
+    function postContent() {
+      const postText = document.getElementById("postText").value;
+      alert("Post created: " + postText);
+      document.getElementById("postText").value = ""; // Clear the textarea
+    }
+  </script>
+
+</body>
+</html>
